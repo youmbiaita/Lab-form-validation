@@ -4,7 +4,7 @@
     <title>Form Validation Practice</title>
 <link rel="stylesheet" href="styles.css">
     <!-- Font Awesome for Icons -->
-    <script src="script.js"></script>
+    <script defer src="script.js"></script>
   </head>
   <body>
     <!-- Container for entire form. -->
@@ -16,26 +16,26 @@
 
         <!-- Registration Form -->
         <form id="registration">
-          <input id="name" name="username" type="text" placeholder="Username" required/>
+          <input id="name" name="username" type="text" placeholder="Username"/>
           <span class="input-icon"><i class="fa-solid fa-user"></i></span><br />
 
-          <input id="email" name="email" type="text" placeholder="Email" required/>
+          <input id="email" name="email" type="text" placeholder="Email"  />
           <span class="input-icon"><i class="fa-solid fa-envelope"></i></span
           ><br />
 
-          <input id="password" name="password" type="text" placeholder="Password" required/>
+          <input id="password" name="password" type="text" placeholder="Password" />
           <span class="input-icon"><i class="fa-solid fa-key"></i></span><br />
 
           <input id="passwordCheck"
             name="passwordCheck"
             type="text"
-            placeholder="Repeat Password" required
+            placeholder="Repeat Password"
           />
           <span class="input-icon"><i class="fa-solid fa-key"></i></span
           ><br /><br />
 
           <div class="flex-row">
-            <input name="terms" type="checkbox"  required/>
+            <input name="terms" type="checkbox"/>
             <label for="terms"
               >I agree to the&nbsp;<a href="#">Terms of Use</a>.</label
             >
@@ -51,17 +51,17 @@
 
         <!-- Login Form -->
         <form id="login" style="border-bottom: 1px solid lightgray;">
-          <input name="username" type="text" placeholder="Username" required/>
+          <input id="name" name="username" type="text" placeholder="Username" />
           <span class="input-icon"><i class="fa-solid fa-user"></i></span><br />
 
-          <input name="password" type="text" placeholder="Password" required/>
+          <input id="password" name="password" type="text" placeholder="Password" />
           <span class="input-icon"><i class="fa-solid fa-key"></i></span
           ><br /><br />
 
           <div class="flex-row">
-            <input name="persist" type="checkbox" required/>
+            <input id="persist" name="persist" type="checkbox" / required>
             <label for="persist">Keep me logged in.</label>
-            <input type="submit" value="Login" required />
+            <input type="submit" value="Login"  />
           </div>
           <br /><br />
         </form>

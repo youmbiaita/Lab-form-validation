@@ -6,186 +6,97 @@ const email = document.getElementById("email")
 const password = document.getElementById("password")
 const passwordChecked = document.getElementById("passwordCheck")
 const errorDisplay = document.getElementById('errorDisplay');
+let message = [];
 
-registration.addEventListener("submit", (e) => {
-    let message = [];
+// 1. function for validation name
+function validateUserName() {
     if (userName.value === "" || userName.value === null) {
-        message.push("Name is Required")
+        message.push("Username is Required.");
     }
-    if (userName.length < 4) {
+
+    if (userName.value.length < 4) {
         message.push("Username must be at least four characters long.");
     }
      // Check if the username contains at least two unique characters
-     const uniqueChars = new Set(userName);
+     const uniqueChars = new Set(userName.value);
      if (uniqueChars.size < 2) {
          message.push("Username must contain at least two unique characters.");
      }
  
-     // Check if the username contains any special characters or whitespace
-     if (!/^[a-zA-Z0-9]+$/.test(userName)) {
+    //  // Check if the username contains any special characters or whitespace
+     if (!/^[a-zA-Z0-9]+$/.test(userName.value)) {
          message.push("Username cannot contain any special characters or whitespace.");
      }
+}
+
+//2.  Function to validate the email
+function validateEmail() {
+    // Check if the email is not blank
+    if (email.value === "") {
+        message.push("Email can not be blank.");
+    }
+
+    // Check if the email is a valid email address
+    if (!/^\S+@\S+\.\S+$/.test(email.value)) {
+        message.push("Invalid email address.");
+    }
+
+    // Check if the email is from the domain "example.com"
+    if (email.value.toLowerCase().endsWith('@example.com')) {
+        message.push("Emails from example.com are not allowed.");
+    }
+}
+
+//3. Function to validate the password
+
+function validatePassword() {
+    // Check if passwords match
+    if (password.value !== passwordChecked.value) {
+        message.push("Passwords do not match.");
+    }
+
+    // Check password length
+    if (password.value.length < 12) {
+        message.push("Password must be at least 12 characters long.");
+    }
+
+    // Check for uppercase, lowercase, numbers, and special characters
+    if (!/[A-Z]/.test(password.value) || !/[a-z]/.test(password.value) || !/\d/.test(password.value) || !/[^a-zA-Z0-9]/.test(password.value)) {
+        message.push("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+    }
+
+    // Check if password contains the word "password"
+    if (password.value.toLowerCase().includes("password")) {
+        message.push("Password cannot contain the word 'password'.");
+    }
+
+    // Check if password contains the username
+    if (password.value.toLowerCase().includes(userName.value.toLowerCase())) {
+        message.push("Password cannot contain the username.");
+    }
+}
+
+//4. Registration form
+
+
+registration.addEventListener("submit", (e) => {
+    validateUserName(); 
+    validateEmail(); 
+    validatePassword();  
      if (message.length > 0) {
-        e.preventDefault()
-        errorDisplay.innerHTML = ", ";
+        e.preventDefault();
+        errorDisplay.style.display = "block";
+        errorDisplay.innerHTML = message.join("<br>");
      }
 })
-console.log(registration())
 
-// function validateUserName(userNameInput) {
-//     //check that username is not blank
-//     if (userNameInput === "") {
-//         return "UserName can not be blank";
-//     }
-//     // check if username is at least four character long
-//     if (userNameInput.length < 4) {
-//         return "Username must be at least four characters long."
-//     }
 
-//     // Check if the username contains at least two unique characters
-//     const uniqueChars = new Set(username);
-//     if (uniqueChars.size < 2) {
-//         return "Username must contain at least two unique characters.";
-//     }
+//Part 4: Login Form Validation Requierement
+const login = document.getElementById("login");
 
-//     // Check if the username contains any special characters or whitespace
-//     if (!/^[a-zA-Z0-9]+$/.test(username)) {
-//         return "Username cannot contain any special characters or whitespace.";
-//     }
-
-//     // Username is valid
-//     return "";
-// }
-
-// //2.  Function to validate the email
-// function validateEmail(emailInput) {
-//     // Check if the email is not blank
-//     if (emailInput === "") {
-//         return "Email can not be blank.";
-//     }
-
-//     // Check if the email is a valid email address
-//     if (!/^\S+@\S+\.\S+$/.test(emailInput)) {
-//         return "Invalid email address.";
-//     }
-
-//     // Check if the email is from the domain "example.com"
-//     if (emailInput.toLowerCase().endsWith('@example.com')) {
-//         return "Emails from example.com are not allowed.";
-//     }
-
-//     // Email is valid
-//     return "";
-// }
-
-// //3. Function to validate the password
-
-// function validatePassword(passwordInput, passwordCheck, userNameInput) {
-//     // Check if passwords match
-//     if (passwordInput !== passwordCheck) {
-//         return "Passwords do not match.";
-//     }
-
-//     // Check password length
-//     if (passwordInput.length < 12) {
-//         return "Password must be at least 12 characters long.";
-//     }
-
-//     // Check for uppercase, lowercase, numbers, and special characters
-//     if (!/[A-Z]/.test(passwordInput) || !/[a-z]/.test(passwordInput) || !/\d/.test(passwordInput) || !/[^a-zA-Z0-9]/.test(passwordInput)) {
-//         return "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
-//     }
-
-//     // Check if password contains the word "password"
-//     if (passwordInput.toLowerCase().includes("password")) {
-//         return "Password cannot contain the word 'password'.";
-//     }
-
-//     // Check if password contains the username
-//     if (passwordInput.toLowerCase().includes(userNameInput.toLowerCase())) {
-//         return "Password cannot contain the username.";
-//     }
-
-//     // Password is valid
-//     return "";
-// }
-
-// //4. Function to handle form submission
-
-// function handleRegistrationFormSubmit(evt) {
-//     evt.preventDefault(); // Prevent the form from submitting
-
-//     // Validate username
-//     const usernameErrorMessage = validateUserName(userNameInput);
-//     if (usernameErrorMessage !== "") {
-//         displayError(usernameErrorMessage);
-//         return;
-//     }
-
-//     // Validate email
-//     const emailErrorMessage = validateEmail(emailInput);
-//     if (emailErrorMessage !== "") {
-//         displayError(emailErrorMessage);
-//         return;
-//     }
-
-//     // Validate password
-//     const passwordErrorMessage = validatePassword(passwordInput, passwordCheck, userNameInput);
-//     if (passwordErrorMessage !== "") {
-//         displayError(passwordErrorMessage);
-//         return;
-//     }
-
-//     // Check if terms are accepted
-//     const termsAccepted = registration.elements['terms'].checked;
-//     if (!termsAccepted) {
-//         displayError("Please accept the terms and conditions.");
-//         return;
-//     }
-
-//     // Store user data using localStorage
-//     const userData = {
-//         userNameInput: username,
-//         emailInput: email,
-//         passwordInput: password
-//     };
-
-//     // Check if username is already taken
-//     const storedUserData = JSON.parse(localStorage.getItem('userData')) || [];
-//     const isUsernameTaken = storedUserData.some(user => user.username === username);
-//     if (isUsernameTaken) {
-//         displayError("That username is already taken.");
-//         return;
-//     }
-
-//     // Store user data
-//     storedUserData.push(userData);
-//     localStorage.setItem('userData', JSON.stringify(storedUserData));
-
-//     // Clear form fields
-//     registration.reset();
-
-//     // Display success message
-//     displaySuccess("Registration successful!");
-// }
-
-// // Function to display error message
-// function displayError(message) {
-//     const errorDisplay = document.getElementById('errorDisplay');
-//     errorDisplay.textContent = message;
-//     errorDisplay.style.display = "block"
-  
-    
-// }
-
-// // Function to display success message
-// function displaySuccess(message) {
-//     const errorDisplay = document.getElementById('errorDisplay');
-//     errorDisplay.textContent = message;
-//     errorDisplay.style.color = "green"
-// }
-
-// // Attach event listener to the registration form submission
-// registration.addEventListener("submit", handleRegistrationFormSubmit(evt));
-
+function validateName () {
+    if (userName.value === "") {
+      message.push("Username can not be blank.")
+    }
+}
 
