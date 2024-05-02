@@ -87,16 +87,48 @@ registration.addEventListener("submit", (e) => {
         e.preventDefault();
         errorDisplay.style.display = "block";
         errorDisplay.innerHTML = message.join("<br>");
+     } else {
+        e.preventDefault();
+        errorDisplay.style.display = "block";
+        errorDisplay.style.color = "green";
+        errorDisplay.style.background = "#98fb98";
+        errorDisplay.innerHTML = "Register Successfully!";
      }
+     message = [];
 })
 
 
 //Part 4: Login Form Validation Requierement
 const login = document.getElementById("login");
+const loginName = document.getElementById("loginName");
+const loginPassword = document.getElementById("loginPassword");
 
-function validateName () {
-    if (userName.value === "") {
+
+function validatedLoginUserName () {
+    if (loginName.value === "" || loginName.value === null) {
       message.push("Username can not be blank.")
     }
 }
+
+function validatedLoginPassword () {
+    if(loginPassword.value === "") {
+        message.push("Please fill the space");
+    }
+}
+
+login.addEventListener("submit", (e) => {
+    validatedLoginUserName(); 
+    validatedLoginPassword();  
+     if (message.length > 0) {
+        e.preventDefault();
+        errorDisplay.style.display = "block";
+        errorDisplay.innerHTML = message.join("<br>");
+     } else {
+        e.preventDefault();
+        errorDisplay.style.display = "block";
+        errorDisplay.style.color = "green";
+        errorDisplay.style.background = "#98fb98";
+        errorDisplay.innerHTML = "Login Successfully!";
+     }
+})
 
