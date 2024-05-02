@@ -10,7 +10,7 @@ let message = [];
 
 // 1. function for validation name
 function validateUserName() {
-    if (userName.value === "" || userName.value === null) {
+    if (userName.value.trim() === "" || userName.value === null) {
         message.push("Username is Required.");
     }
 
@@ -32,7 +32,7 @@ function validateUserName() {
 //2.  Function to validate the email
 function validateEmail() {
     // Check if the email is not blank
-    if (email.value === "") {
+    if (email.value.trim() === "") {
         message.push("Email can not be blank.");
     }
 
@@ -86,6 +86,8 @@ registration.addEventListener("submit", (e) => {
      if (message.length > 0) {
         e.preventDefault();
         errorDisplay.style.display = "block";
+        errorDisplay.style.color = "red";
+        errorDisplay.style.background = "#fcc";
         errorDisplay.innerHTML = message.join("<br>");
      } else {
         e.preventDefault();
@@ -105,13 +107,13 @@ const loginPassword = document.getElementById("loginPassword");
 
 
 function validatedLoginUserName () {
-    if (loginName.value === "" || loginName.value === null) {
+    if (loginName.value.trim() === "" || loginName.value === null) {
       message.push("Username can not be blank.")
     }
 }
 
 function validatedLoginPassword () {
-    if(loginPassword.value === "") {
+    if(loginPassword.value.trim() === "") {
         message.push("Please fill the space");
     }
 }
@@ -122,6 +124,8 @@ login.addEventListener("submit", (e) => {
      if (message.length > 0) {
         e.preventDefault();
         errorDisplay.style.display = "block";
+        errorDisplay.style.color = "red";
+        errorDisplay.style.background = "#fcc";
         errorDisplay.innerHTML = message.join("<br>");
      } else {
         e.preventDefault();
@@ -130,5 +134,6 @@ login.addEventListener("submit", (e) => {
         errorDisplay.style.background = "#98fb98";
         errorDisplay.innerHTML = "Login Successfully!";
      }
+     message = [];
 })
 
